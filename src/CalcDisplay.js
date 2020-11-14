@@ -4,7 +4,8 @@ function CalcDisplay(props){
     return(
         <input
             value={props.text}
-            readOnly={true}/>
+            readOnly={true}
+            className="calc-display-style"/>
     );
 }
 

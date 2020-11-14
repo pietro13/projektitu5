@@ -1,21 +1,33 @@
 import React from 'react';
-import Calc from "./CalcButton";
-import
+import CalcButton from "./CalcButton";
+import CalcDisplay from "./CalcDisplay";
 
 function CalcPanel (props)
 {
-    const captions =[
-        "7","8","9","*",
-        "4","5","6","+",
-        "1","2","3","=",
-        "Vloz maticu",
+    const buttons =[
+        {text: "7", handler: ()=> props.numberClicked("7")},
+        {text: "8", handler: ()=> props.numberClicked("8")},
+        {text: "9", handler: ()=> props.numberClicked("9")},
+        {text: "*", handler: ()=> props.operationClicked("multiply")},
+        {text: "4", handler: ()=> props.numberClicked("4")},
+        {text: "5", handler: ()=> props.numberClicked("5")},
+        {text: "6", handler: ()=> props.numberClicked("6")},
+        {text: "+", handler: ()=> props.operationClicked("add")},
+        {text: "1", handler: ()=> props.numberClicked("1")},
+        {text: "2", handler: ()=> props.numberClicked("2")},
+        {text: "3", handler: ()=> props.numberClicked("3")},
+        {text: "=", handler: ()=> props.equalClicked("=")},
     ];
-    const calc_buttons= captions.map((value,index)=>{
-        return <Calc caption={value}/>
+    const calc_buttons= buttons.map((value,index) => {
+        return <CalcButton
+            caption={value.text}
+            onClick={value.handler}
+        />
     });
 
     return(
         <div className="calc-grid">
+            <CalcDisplay text={props.result}/>
             {calc_buttons}
         </div>
     )
