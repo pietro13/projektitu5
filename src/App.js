@@ -1,11 +1,13 @@
 import logo from './logo.svg';
 import './App.css';
-import ITU from './ITU.js';
+import CalcPanel from './CalcPanel.js';
 
 function App() {
   return (
     <div className="App">
-      <ITU/>
+        <header className="App-header">
+            <CalcPanel/>
+        </header>
     </div>
   );
 }
