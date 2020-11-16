@@ -1,4 +1,5 @@
 import React from 'react'
+import Matrix from './react-matrix'
 
 
 
@@ -14,12 +15,13 @@ function CalcDisplay(props){console.log(props);
 
 
     return(
-        <input
-            style={{width: props.value.length*8}}
-            value={props.value}
-            type='text'
-            className= "calc-display-style"
-            onKeyDown={props.keyboard}/>
+            <div>
+            <Matrix columns={props.matrixtodisplay} mouse={props.mouse}/>
+                <text > + </text>
+            <Matrix columns={props.matrixtodisplay} mouse={props.mouse}/>
+        </div>
+
+
 
     );
 }

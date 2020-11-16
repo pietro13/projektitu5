@@ -17,6 +17,7 @@ function CalcPanel (props)
         {text: "2", handler: ()=> props.numberClicked("2")},
         {text: "3", handler: ()=> props.numberClicked("3")},
         {text: "=", handler: ()=> props.equalClicked("=")},
+        {text: "Vlož maticu", handler: ()=> props.matrixInput()},
     ];
     const calc_buttons= buttons.map((value,index) => {
         return <CalcButton

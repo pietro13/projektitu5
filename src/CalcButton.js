@@ -7,7 +7,7 @@ function CalcButton(props)
     return(
         <input type='button'
         value={props.caption}
-        className={props.caption === "Vloz maticu" ? "calc-equal-button" : null}
+        className={props.caption === "Vlož maticu" ? "calc-equal-button" : null}
         onClick={props.onClick}
 
         />
