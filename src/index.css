@@ -17,13 +17,22 @@ code {
   grid-template-columns:auto auto auto auto ;
   grid-template-rows: auto auto auto auto ;
   grid-gap: 10px;
-  padding: 10px;
+  width: 250px;
+  height: 200px;
+
 }
+
+.matrix-output{
+  horiz-align: center;
+  padding-top: 90px;
+}
+
 
 .calc-equal-button{
   grid-column: 1 / span 4;
 }
 
 .calc-display-style{
-  grid-column: 1/ span 4;
+  min-width: 50px;
+  
 }

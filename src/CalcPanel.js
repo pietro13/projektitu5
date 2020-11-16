@@ -27,9 +27,9 @@ function CalcPanel (props)
 
     return(
         <div className="calc-grid">
-            <CalcDisplay text={props.result}/>
             {calc_buttons}
         </div>
+
     )
 }
 export default CalcPanel;

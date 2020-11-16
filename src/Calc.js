@@ -1,5 +1,6 @@
 import React from 'react'
 import CalcPanel from "./CalcPanel";
+import CalcDisplay from "./CalcDisplay";
 
 class Calc extends React.Component{
 
@@ -10,6 +11,7 @@ class Calc extends React.Component{
             numbers:["", ""],
             numberIdx: 0,
             operation: "",
+            board: [[0]],
         };
     }
     operationHandler(operation){
@@ -72,6 +74,11 @@ class Calc extends React.Component{
         });
     }
 
+    keyboardHandler(props){console.log(props);this.numberHandler("9");
+
+
+    }
+
     setResult(result){
         const newNumbers = [result,""];
         const newNumberIdx = 0;
@@ -84,15 +91,26 @@ class Calc extends React.Component{
 
 
     render(){
-
+        const { board } = this.state;
         return(
-            <div className="calc-grid">
-                <CalcPanel
+            <div > <div  > </div>
+                <div className="matrix-output" >
+                    {board.map((row, i) => (
+                        <div key={i}>
+                            {row.map((col, j) => (
+                                <span key={j}><CalcDisplay value={this.state.result} keyboard={this.keyboardHandler.bind(this)}/></span>
+                            ))}
+                        </div>
+                    ))}
+                </div>
+            <div className="Calc-buttons">
+                <CalcPanel className="calc-grid"
                     result={this.state.result}
                     numberClicked={this.numberHandler.bind(this)}
                     operationClicked={this.operationHandler.bind(this)}
                     equalClicked={this.equalHandler.bind(this)}
-                    />
+                    /></div>
+
 
             </div>
         )

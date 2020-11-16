@@ -1,11 +1,26 @@
 import React from 'react'
 
-function CalcDisplay(props){
+
+
+var mywidth = "50";
+
+
+
+function CalcDisplay(props){console.log(props);
+
+
+
+
+
+
     return(
         <input
-            value={props.text}
-            readOnly={true}
-            className="calc-display-style"/>
+            style={{width: props.value.length*8}}
+            value={props.value}
+            type='text'
+            className= "calc-display-style"
+            onKeyDown={props.keyboard}/>
+
     );
 }
 
