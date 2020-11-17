@@ -1,39 +1,32 @@
 import React from 'react'
 import CalcPanel from "./CalcPanel";
-import CalcDisplay from "./CalcDisplay";
+
 import Matrix from "./react-matrix";
+import {render} from "@testing-library/react";
 
 class Calc extends React.Component{
 
     constructor(props){
         super(props);
         this.state = {
-            result: "",
-            numbers:["", ""],
-            numberIdx: 0,
-            operation: "",
-            board: [[0],[1]],
-            matrix:[],
-            mouse: "",
-            x: -1,
-            y: -1,
-
-
+            /* matica riadok stlpec array matic array operacii*/
+            all: [-1,-1,-1,[[[0]]],[] ],
+            update: 0,
         };
     }
     operationHandler(operation){
-        if(this.state.numberIdx === 1) {
-            this.equalHandler();
-            return;
+        if(this.state.all[4].length + 1  ===  this.state.all[3].length) {
+            if(operation === "add"){
+
+                this.state.all[4].push("+");
+                this.setState({
+                    update: 0,
+                })
+        }
         }
 
-        if(operation === "add" &&
-        this.state.numbers[this.state.numberIdx] === "")
-        {
-            this.numberHandler(operation === "add" ? "+" : null)
-            return;
-        }
-        this.setOperation(operation);
+
+
     }
 
     setOperation(operation) {
@@ -105,24 +98,47 @@ class Calc extends React.Component{
         });
     }
 
-    matrixInputHandler()
-    {
+    matrixInputHandler() {
 
-        this.state.matrix.push([1,1,[0]]);
+        if (this.state.all[3].length === this.state.all[4].length)
+        {
+
+            this.state.all[3].push([[0]]);
+        this.setState({
+                update: 0,
+             });
+        }
         console.log(this.state);
     }
 
 
+
+
     render(){
-        const { board } = this.state;
-        const { mouse } = this.state;
+        const { all } = this.state;
+        console.log(all);
+
 
 
         return(
             <div >
                 <div className="matrix-output" >
-                   <CalcDisplay  matrixtodisplay={board} mouse={mouse} value={this.state.result} keyboard={this.keyboardHandler.bind(this)}/>
+
+                    {all[3].map((row, i) => (
+                        <span key={i}>
+
+
+                        <Matrix columns={all[3][i]} all={all} key={i}/>
+                            {all[4][i] &&
+
+                            <input value={all[4][i]} style={{width: 8}}/>
+
+                        }
+                        </span>
+
+                    ))}
                 </div>
+
 
                 <div className="Calc-buttons">
                     <CalcPanel className="calc-grid"
@@ -137,7 +153,6 @@ class Calc extends React.Component{
 
             </div>
         )
-
     }
 }
 

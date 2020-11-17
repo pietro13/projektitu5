@@ -3,27 +3,36 @@ import Matrix from './react-matrix'
 
 
 
-var mywidth = "50";
-
-
-
-function CalcDisplay(props){console.log(props);
 
 
 
 
+class CalcDisplay extends React.Component{
 
 
-    return(
+
+
+
+    render()
+    {
+
+
+        return (
             <div>
-            <Matrix columns={props.matrixtodisplay} mouse={props.mouse}/>
-                <text > + </text>
-            <Matrix columns={props.matrixtodisplay} mouse={props.mouse}/>
-        </div>
+                {this.props.all[3].map((row, i) => (
+                    <span key={i}>
 
 
+                        <Matrix columns={this.props.all[3][i]} all={this.props.all} key={i}/>
+            </span>
 
-    );
+
+                ))}
+            </div>
+
+
+        );
+    }
 }
 
 export default CalcDisplay;
