@@ -45,23 +45,18 @@ class Calc extends React.Component{
     }
 
     numberHandler(number){
-            const newNumber = this.state.numbers[this.state.numberIdx] + number;
+            var lenght = this.state.all[3][this.state.all[0]][this.state.all[1]][this.state.all[2]].length ;
+            console.log(lenght);
+            const newNumber =  number;
         this.setState(
             {
-                mouse: number,
+                update: 0,
             }
         )
-            this.updateNumber(newNumber);
+
     }
 
-    updateNumber(newNumber){
-        var newNumbers = this.state.numbers;
-        newNumbers[this.state.numberIdx] = newNumber;
-        this.setState({
-            result: newNumbers[this.state.numberIdx],
-            numbers: newNumbers,
-        });
-    }
+
 
 
 
@@ -125,16 +120,19 @@ class Calc extends React.Component{
                 <div className="matrix-output" >
 
                     {all[3].map((row, i) => (
-                        <span key={i}>
-
-
-                        <Matrix columns={all[3][i]} all={all} key={i}/>
+                        <span key={i} className="matrix-output">
+                            <Matrix columns={all[3][i]} all={all} key={i}/>
                             {all[4][i] &&
 
-                            <input value={all[4][i]} style={{width: 8}}/>
 
+                            <input value={all[4][i]} style={{width: 8,border: '1px solid #eee',
+                                display: 'block',
+                                margin: '4px 0',
+                                padding: '4px',
+                                textAlign: 'center'}}/>
                         }
                         </span>
+
 
                     ))}
                 </div>

@@ -34,6 +34,7 @@ class MatrixCell extends React.Component {
 
 
 		if(e.target.value.match("^[0-9]?$") != null ||
+			e.target.value.match("^0\\.[0-9]*$") != null ||
 			e.target.value.match("^[1-9][0-9]*$") != null ||
 			e.target.value.match("^[1-9][0-9]*\\.[0-9]*$") != null) {
 			var diffLen = ('' + val).length - ('' + oldVal).length;
@@ -107,7 +108,7 @@ class MatrixCell extends React.Component {
 
 
 		return (
-			<input ref="input" type="text" style={style}  value={this.props.value} readOnly={false}
+			<input ref="input" type="text" style={style}  value={this.props.value} placeholder="0" readOnly={false}
 				onClick={this.onClick.bind(this)}
 				onKeyUp={this.onKeyUp.bind(this)}
 				onChange={this.onChange.bind(this)}
@@ -126,6 +127,7 @@ class Matrix extends React.Component {
 			caret: 0,
 			columns: this.props.columns,
 			matrix: this.props.all[0],
+			all: this.props.all,
 
 
 		}
@@ -217,6 +219,8 @@ class Matrix extends React.Component {
 	setCell(caret, cellX, cellY) {
 		// Remove columns / rows if needed
 		this.truncate(cellX, cellY);
+
+		this.state.all[2] = cellX;
 
 		this.setState({
 			caret: caret,
@@ -339,7 +343,7 @@ class Matrix extends React.Component {
 
 	render() {
 
-		var activeCell = this.state.x * this.getHeight() + this.state.y;
+		var activeCell = this.state.all[1] * this.getHeight() + this.state.all[2];
 		var currentCell = 0;
 
 		var columns = this.state.columns.map(function(columnValues, x) {
