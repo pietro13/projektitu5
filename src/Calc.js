@@ -1,8 +1,9 @@
 import React from 'react'
 import CalcPanel from "./CalcPanel";
-
+import RangeSlider from "./Slider";
 import Matrix from "./react-matrix";
 import {render} from "@testing-library/react";
+import board from "./keyboard";
 
 class Calc extends React.Component{
 
@@ -10,7 +11,7 @@ class Calc extends React.Component{
         super(props);
         this.state = {
             /* matica riadok stlpec array matic array operacii*/
-            all: [-1,-1,-1,[[[0]]],[] ],
+            all: [-1,-1,-1,[],[] ],
             update: 0,
         };
     }
@@ -117,11 +118,14 @@ class Calc extends React.Component{
 
 
         return(
-            <span>
+            <span  >
                 <div className="matrix-output" >
 
                     {all[3].map((row, i) => (
+                        <span><RangeSlider  />
                         <span key={i} className="matrix-output">
+                            <span style={{ transform: "rotate(90deg)"}}>
+                            <RangeSlider  /></span>
                             <Matrix columns={all[3][i]} all={all} key={i}/>
                             {all[4][i] &&
 
@@ -133,14 +137,15 @@ class Calc extends React.Component{
                                 textAlign: 'center'}}/>
                         }
                         </span>
-
+                        </span>
 
                     ))}
                 </div>
 
 
                 <div className="Calc-buttons" >
-                    <div className="movecalc" >Zmeň polohu</div>
+
+
                     <CalcPanel className="calc-grid"
                     result={this.state.result}
                     numberClicked={this.numberHandler.bind(this)}

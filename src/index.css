@@ -25,15 +25,25 @@ code {
 
 .matrix-output{
 
-  horiz-align: center;
+
 
   padding-top: 90px;
 
   display: flex;
-  justify-content: center;
+
   align-items: center;
+  overflow-x: scroll;
 
 
+
+
+}
+
+
+.matrix-output::before,
+.matrix-output::after {
+  content: '';
+  flex: 1;
 }
 .marks{
 
