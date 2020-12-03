@@ -109,6 +109,7 @@ class Calc extends React.Component{
 
 
 
+
     render(){
         const { all } = this.state;
         console.log(all);
@@ -116,7 +117,7 @@ class Calc extends React.Component{
 
 
         return(
-            <div >
+            <span>
                 <div className="matrix-output" >
 
                     {all[3].map((row, i) => (
@@ -138,7 +139,8 @@ class Calc extends React.Component{
                 </div>
 
 
-                <div className="Calc-buttons">
+                <div className="Calc-buttons" >
+                    <div className="movecalc" >Zmeň polohu</div>
                     <CalcPanel className="calc-grid"
                     result={this.state.result}
                     numberClicked={this.numberHandler.bind(this)}
@@ -149,7 +151,7 @@ class Calc extends React.Component{
                 </div>
 
 
-            </div>
+    </span>
         )
     }
 }

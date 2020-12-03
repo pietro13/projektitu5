@@ -33,19 +33,21 @@
 }
 
 .App-header {
-
-
-
-
-
-
   font-size: calc(10px + 2vmin);
   color: black;
 }
 
+.movecalc {
+  padding: 10px;
+  cursor: move;
+  z-index: 10;
+  background-color: #2196F3;
+  color: #fff;
+}
+
 .Calc-buttons {
 
-  position: fixed;
+  position: absolute;
   bottom: 80px;
   left: 100px;
   width: 250px;
