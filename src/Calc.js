@@ -99,12 +99,20 @@ class Calc extends React.Component{
         if (this.state.all[3].length === this.state.all[4].length)
         {
 
-            this.state.all[3].push([[0]]);
+            this.state.all[3].push([['']]);
         this.setState({
                 update: 0,
              });
         }
         console.log(this.state);
+    }
+
+    set_matrix_active(i)
+    {
+
+
+       this.state.all[0] = i;
+
     }
 
 
@@ -113,20 +121,21 @@ class Calc extends React.Component{
 
     render(){
         const { all } = this.state;
-        console.log(all);
+        //console.log(all);
 
 
 
         return(
             <span  >
-                <div className="matrix-output" >
+                <div className="matrix-display" >
 
                     {all[3].map((row, i) => (
-                        <span><RangeSlider  />
+                        <span onClick={this.set_matrix_active(i)}> <span><RangeSlider  /></span>
                         <span key={i} className="matrix-output">
                             <span style={{ transform: "rotate(90deg)"}}>
                             <RangeSlider  /></span>
-                            <Matrix columns={all[3][i]} all={all} key={i}/>
+                            <Matrix columns={all[3][i]} all={all} />
+                            <span style={{padding: '40px'}}>
                             {all[4][i] &&
 
 
@@ -134,8 +143,9 @@ class Calc extends React.Component{
                                 display: 'block',
                                 margin: '4px 0',
                                 padding: '4px',
-                                textAlign: 'center'}}/>
-                        }
+                                textAlign: 'center',
+                                }}/>
+                        }</span>
                         </span>
                         </span>
 

@@ -126,7 +126,7 @@ class Matrix extends React.Component {
 			y: this.props.all[2],
 			caret: 0,
 			columns: this.props.columns,
-			matrix: this.props.all[0],
+			matrix: props.key,
 			all: this.props.all,
 
 
@@ -263,6 +263,8 @@ class Matrix extends React.Component {
 			this.addRow();
 		}
 
+		this.state.all[1] = cellX;
+		this.state.all[2] = cellY;
 		this.setState({
 			caret: caretPos,
 			x: cellX,
@@ -345,7 +347,7 @@ class Matrix extends React.Component {
 
 		var activeCell = this.state.all[1] * this.getHeight() + this.state.all[2];
 		var currentCell = 0;
-
+		console.log(this.props.key);
 		var columns = this.state.columns.map(function(columnValues, x) {
 			var y = 0;
 			var column = columnValues.map(function(value, y) {

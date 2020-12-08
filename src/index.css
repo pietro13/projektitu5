@@ -23,7 +23,7 @@ code {
 
 }
 
-.matrix-output{
+.matrix-display{
 
 
 
@@ -32,7 +32,24 @@ code {
   display: flex;
 
   align-items: center;
-  overflow-x: scroll;
+  overflow-x: auto;
+  overflow-y: hidden;
+
+
+
+
+}
+
+.matrix-output{
+
+
+  padding-top: 40px;
+
+
+  display: flex;
+
+  align-items: center;
+
 
 
 
@@ -40,8 +57,8 @@ code {
 }
 
 
-.matrix-output::before,
-.matrix-output::after {
+.matrix-display::before,
+.matrix-display::after {
   content: '';
   flex: 1;
 }
