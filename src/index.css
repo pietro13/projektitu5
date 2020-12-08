@@ -24,44 +24,49 @@ code {
 }
 
 .matrix-display{
-
-
-
   padding-top: 90px;
-
+  padding-left: 50px;
   display: flex;
-
   align-items: center;
   overflow-x: auto;
   overflow-y: hidden;
+}
+
+.matrix-display::after
+{
+  content: '';
+  flex: 1;
+}
+
+.padding_left{
+  padding-left: 80px;
+}
 
 
+.align_center{
+  display: flex;
 
+}
+.align_start{
+  display: flex;
+  align-items: self-start;
+}
 
+.padding_top{
+  padding-top: 40px;
 }
 
 .matrix-output{
 
 
-  padding-top: 40px;
-
-
+  align-items: center;
   display: flex;
 
-  align-items: center;
-
-
-
-
 
 }
 
 
-.matrix-display::before,
-.matrix-display::after {
-  content: '';
-  flex: 1;
-}
+
 .marks{
 
 }

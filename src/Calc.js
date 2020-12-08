@@ -104,14 +104,17 @@ class Calc extends React.Component{
                 update: 0,
              });
         }
-        console.log(this.state);
     }
 
     set_matrix_active(i)
     {
 
+            console.log(i);
 
        this.state.all[0] = i;
+       this.setState({
+           update: 0
+       })
 
     }
 
@@ -121,34 +124,42 @@ class Calc extends React.Component{
 
     render(){
         const { all } = this.state;
-        //console.log(all);
 
 
 
         return(
             <span  >
-                <div className="matrix-display" >
+                <div className="matrix-display" onChange={() => this.setState({update:0})} >
 
                     {all[3].map((row, i) => (
-                        <span onClick={this.set_matrix_active(i)}> <span><RangeSlider  /></span>
-                        <span key={i} className="matrix-output">
-                            <span style={{ transform: "rotate(90deg)"}}>
-                            <RangeSlider  /></span>
-                            <Matrix columns={all[3][i]} all={all} />
-                            <span style={{padding: '40px'}}>
-                            {all[4][i] &&
+
+                        <span key={i} onClick={()=>this.set_matrix_active(i)} >
+                            <span className="padding_left align_start">
+                                {(all[0] === i) && <button > copy </button>}
+                                {(all[0] === i) && <RangeSlider key={i} type = {1} matrix={all[3][i]} />}
+                            </span>
+                            <span className="padding_top align_center">
+                                <span  className="align_start">
+                                    {(all[0] === i) && <RangeSlider key={i} type = {2} matrix={all[3][i]} />}
+                                </span>
+
+                                <span  className="matrix-output" >
+                                    <Matrix columns={all[3][i]} all={all} />
 
 
-                            <input value={all[4][i]} style={{width: 8,border: '1px solid #eee',
-                                display: 'block',
-                                margin: '4px 0',
-                                padding: '4px',
-                                textAlign: 'center',
-                                }}/>
-                        }</span>
+
+                                <span style={{padding: '20px'}}>
+                                    {all[4][i] &&
+                                    <input  value={all[4][i]}  onClick={(e) => e.stopPropagation()} style={{width: 8,border: '1px solid #eee',
+
+                                        margin: '4px 0',
+                                        padding: '4px',
+                                        textAlign: 'center',
+                                    }}/>
+                                    }
+                                </span></span>
+                            </span>
                         </span>
-                        </span>
-
                     ))}
                 </div>
 

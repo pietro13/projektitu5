@@ -95,24 +95,20 @@ class MatrixCell extends React.Component {
 		if(this.props.active) this.focus()
 	}
 
-	onInput(e)
-	{
-		console.log(e);
-	}
+
 
 	render() {
 		var style = this.defaultStyle;
 		if(this.props.active) {style = this.activeStyle;}
 
-			console.log(this.props);
+
 
 
 		return (
 			<input ref="input" type="text" style={style}  value={this.props.value} placeholder="0" readOnly={false}
 				onClick={this.onClick.bind(this)}
 				onKeyUp={this.onKeyUp.bind(this)}
-				onChange={this.onChange.bind(this)}
-				onInput={this.onInput.bind(this)}/>
+				onChange={this.onChange.bind(this)}/>
 		);
 	}
 }
@@ -133,8 +129,8 @@ class Matrix extends React.Component {
 		}
 
 		this.style = {
-			overflow: 'hidden',
-			display: 'inline-block',
+			overflow: 'auto',
+			display: 'inline-flex',
 			borderLeft: '2px solid #333',
 			borderRight: '2px solid #333',
 			padding: '0 2px',
@@ -347,7 +343,7 @@ class Matrix extends React.Component {
 
 		var activeCell = this.state.all[1] * this.getHeight() + this.state.all[2];
 		var currentCell = 0;
-		console.log(this.props.key);
+
 		var columns = this.state.columns.map(function(columnValues, x) {
 			var y = 0;
 			var column = columnValues.map(function(value, y) {
@@ -359,6 +355,7 @@ class Matrix extends React.Component {
 
 			var columnStyle = {
 				float: 'left',
+				overflow: 'auto',
 				padding: '2px'
 			}
 
