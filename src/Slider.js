@@ -33,7 +33,11 @@ class RangeSlider extends React.Component {
         {
             if( this.props.matrix.length - 1 < e.target.value )
             {
-                this.props.matrix.push(['']);
+                var newColumn = new Array(this.props.matrix[0].length);
+                for (var i = 0; i < newColumn.length; i++) {
+                           newColumn[i] = ''
+                        };
+                this.props.matrix.push(newColumn);
                 console.log((this.props.matrix.length - 1));
               //  var columns = this.state.columns;
               //  var newColumn = new Array(this.getHeight());
@@ -53,7 +57,7 @@ class RangeSlider extends React.Component {
             if( this.props.matrix[0].length - 1 < e.target.value )
             {
                 for(var i =0; i<this.props.matrix.length ;i++)
-                    this.props.matrix[i].push(['']);
+                    this.props.matrix[i].push('');
                 console.log((this.props.matrix.length - 1));
                 //  var columns = this.state.columns;
                 //  var newColumn = new Array(this.getHeight());

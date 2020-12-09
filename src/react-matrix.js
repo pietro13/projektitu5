@@ -33,10 +33,14 @@ class MatrixCell extends React.Component {
 		var val = e.target.value;
 
 
-		if(e.target.value.match("^[0-9]?$") != null ||
-			e.target.value.match("^0\\.[0-9]*$") != null ||
-			e.target.value.match("^[1-9][0-9]*$") != null ||
-			e.target.value.match("^[1-9][0-9]*\\.[0-9]*$") != null) {
+		if(((e.target.value.match("^-?[0-9]?$") != null ||
+			e.target.value.match("^-?0\\.[0-9]*$") != null ||
+			e.target.value.match("^-?[1-9][0-9]*$") != null ||
+			e.target.value.match("^-?[1-9][0-9]*\\.[0-9]*$") != null ) && !this.props.matrix.state.matrix_oper) ||
+			(e.target.value.match("^[0-9]?$") != null ||
+				e.target.value.match("^0\\.[0-9]*$") != null ||
+				e.target.value.match("^[1-9][0-9]*$") != null ||
+				e.target.value.match("^[1-9][0-9]*\\.[0-9]*$") != null ) ) {
 			var diffLen = ('' + val).length - ('' + oldVal).length;
 			this.props.matrix.setCellValue(this.props.x, this.props.y, val);
 			this.setState({value: val});
@@ -52,6 +56,7 @@ class MatrixCell extends React.Component {
 	}
 
 	onKeyUp(e) {
+		//console.log(e);
 		var dy = 0;
 		var dx = 0;
 		switch(e.key) {
@@ -67,17 +72,55 @@ class MatrixCell extends React.Component {
 			case "ArrowLeft":
 				dx = -1;
 				break;
-			case "+":
+			case "m":
+				this.props.matrix.state.matrix_oper  = 0;
 
 				break;
 			case "*":
-
+					if(this.props.matrix.state.matrix_oper && this.props.matrix.state.all[4].length == this.props.matrix.state.all[3].length - 1 ) {
+						this.props.matrix.state.all[4].push('*');
+						this.props.matrix.props.state();
+					}
 					break;
+			case "-":
+				if(this.props.matrix.state.matrix_oper && this.props.matrix.state.all[4].length == this.props.matrix.state.all[3].length - 1 )
+				{
+					this.props.matrix.state.all[4].push('-');this.props.matrix.props.state();
+				}
+
+				break;
+			case "+":
+				if(this.props.matrix.state.matrix_oper && this.props.matrix.state.all[4].length == this.props.matrix.state.all[3].length - 1 )
+				{
+					this.props.matrix.state.all[4].push('+');this.props.matrix.props.state();
+				}
+
+				break;
+			case "Delete":
+				if(this.props.matrix.state.matrix_oper) {
+					this.props.matrix.state.all[3].splice(this.props.matrix.state.all[0], 1);
+					this.props.matrix.state.all[4].splice(this.props.matrix.state.all[0], 1);
+					this.props.matrix.state.all[0] = -1;
+				}
+				break;
 
 			default: break;
 		}
 
 		this.props.matrix.moveCell(dx, dy);
+	}
+	onKeyDown(e) {
+		console.log(e);
+		switch(e.key) {
+
+			case "m":
+				this.props.matrix.state.matrix_oper = 1;
+				break;
+
+			default: break;
+		}
+
+
 	}
 
 	focus() {
@@ -108,7 +151,9 @@ class MatrixCell extends React.Component {
 			<input ref="input" type="text" style={style}  value={this.props.value} placeholder="0" readOnly={false}
 				onClick={this.onClick.bind(this)}
 				onKeyUp={this.onKeyUp.bind(this)}
-				onChange={this.onChange.bind(this)}/>
+				onKeyDown={this.onKeyDown.bind(this)}
+				onChange={this.onChange.bind(this)}
+				/>
 		);
 	}
 }
@@ -124,6 +169,8 @@ class Matrix extends React.Component {
 			columns: this.props.columns,
 			matrix: props.key,
 			all: this.props.all,
+			matrix_oper: this.props.matrix_oper,
+			update:0
 
 
 		}
@@ -341,9 +388,16 @@ class Matrix extends React.Component {
 
 	render() {
 
-		var activeCell = this.state.all[1] * this.getHeight() + this.state.all[2];
+		var activeCell;
+		if(this.props.index == this.props.all[0])
+			activeCell = this.state.all[1] * this.getHeight() + this.state.all[2];
+		else {
+			activeCell = -1;
+			this.state.matrix_oper = 0;
+		}
 		var currentCell = 0;
 
+		console.log(this.state.matrix_oper);
 		var columns = this.state.columns.map(function(columnValues, x) {
 			var y = 0;
 			var column = columnValues.map(function(value, y) {
@@ -363,6 +417,7 @@ class Matrix extends React.Component {
 			return col;
 			
 		}, this)
+
 		return (
 			<div style={this.style}>
 				{columns}

@@ -94,6 +94,7 @@ class Calc extends React.Component{
         });
     }
 
+    //vlozenie novej matice prazdnej
     matrixInputHandler() {
 
         if (this.state.all[3].length === this.state.all[4].length)
@@ -106,16 +107,56 @@ class Calc extends React.Component{
         }
     }
 
+    //funkcia zmeni cislo aktivnej matice
     set_matrix_active(i)
     {
-
-            console.log(i);
-
        this.state.all[0] = i;
        this.setState({
            update: 0
        })
 
+    }
+
+    my_render()
+    {
+        this.setState({
+            update: 0
+        })
+    }
+
+    //inspiracia z: https://stackoverflow.com/questions/33855641/copy-output-of-a-javascript-variable-to-the-clipboard
+    copytoClipboard()
+    {
+        var newmatrix = "";
+        var oldmatrix = this.state.all[3][this.state.all[0]];
+        for( var i = 0; i< oldmatrix[0].length; i++)
+        {
+            for(var j = 0; j<oldmatrix.length; j++)
+            {
+                if(oldmatrix[j][i])
+                newmatrix += oldmatrix[j][i] + ',';
+                else
+                    newmatrix += '0,';
+            }
+            newmatrix = newmatrix.slice(0,-1) + '\n';
+
+        }
+        newmatrix = newmatrix.slice(0,-1);
+        var dummy = document.createElement("textarea");
+        document.body.appendChild(dummy);
+
+        dummy.value = newmatrix;
+        dummy.select();
+        document.execCommand("copy");
+        document.body.removeChild(dummy);
+    }
+
+    droptoMatrix(e)
+    {
+        e.preventDefault();
+        var textData = e.dataTransfer.getData('text');
+        console.log(e);
+        console.log(textData);
     }
 
 
@@ -124,8 +165,8 @@ class Calc extends React.Component{
 
     render(){
         const { all } = this.state;
-
-
+        var  j  = 0;
+        console.log(all);
 
         return(
             <span  >
@@ -133,26 +174,31 @@ class Calc extends React.Component{
 
                     {all[3].map((row, i) => (
 
-                        <span key={i} onClick={()=>this.set_matrix_active(i)} >
+                        <span key={i} onClick={()=>this.set_matrix_active(i) } >
                             <span className="padding_left align_start">
-                                {(all[0] === i) && <button > copy </button>}
-                                {(all[0] === i) && <RangeSlider key={i} type = {1} matrix={all[3][i]} />}
+                                {(all[0] === i) && <input key={i+ "p1"} style={{ width: "60px" , height: "30px" , border: '1px solid #eee', 'text-align' : 'center' }} readOnly={false}
+
+                                                  onDrop={(e) =>this.droptoMatrix(e)}         value={"DROP"} /> }
+                                {(all[0] === i) && <button onClick={() => this.copytoClipboard()} > copy </button>}
+                                {(all[0] === i) && <button onClick={() => this.transponMatrix()} > transpon </button>}
+                                {(all[0] === i) && <RangeSlider key={i + "p2"} type = {1} matrix={all[3][i]} />}
                             </span>
                             <span className="padding_top align_center">
                                 <span  className="align_start">
-                                    {(all[0] === i) && <RangeSlider key={i} type = {2} matrix={all[3][i]} />}
+                                    {(all[0] === i) && <RangeSlider key={i+ "p3"} type = {2} matrix={all[3][i]} />}
                                 </span>
 
                                 <span  className="matrix-output" >
-                                    <Matrix columns={all[3][i]} all={all} />
+                                     <Matrix columns={all[3][i]} all={all} state ={()=>this.my_render()}index={j++} key={i+ "p4"} matrix_oper={0}/>
 
 
 
                                 <span style={{padding: '20px'}}>
                                     {all[4][i] &&
-                                    <input  value={all[4][i]}  onClick={(e) => e.stopPropagation()} style={{width: 8,border: '1px solid #eee',
+                                    <input key={i + "p5"} value={all[4][i]}  onClick={(e) => e.stopPropagation()} style={{width: 20,border: '1px solid #eee',
 
                                         margin: '4px 0',
+                                    'font-size': '25px',
                                         padding: '4px',
                                         textAlign: 'center',
                                     }}/>
@@ -164,7 +210,7 @@ class Calc extends React.Component{
                 </div>
 
 
-                <div className="Calc-buttons" >
+                <div className="Calc-buttons"  >
 
 
                     <CalcPanel className="calc-grid"
