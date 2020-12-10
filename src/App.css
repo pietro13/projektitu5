@@ -27,6 +27,12 @@
 
 }
 
+.bar{
+  text-align: right;
+  padding-right: 5px;
+  padding-top: 5px;
+}
+
 .declaration{
   horiz-align: center;
   padding-top: 40px;

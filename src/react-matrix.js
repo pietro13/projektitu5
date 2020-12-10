@@ -166,7 +166,7 @@ class Matrix extends React.Component {
 			x: this.props.all[1],
 			y: this.props.all[2],
 			caret: 0,
-			columns: this.props.columns,
+			columns: this.props.all[3][this.props.index],
 			matrix: props.key,
 			all: this.props.all,
 			matrix_oper: this.props.matrix_oper,
@@ -186,20 +186,20 @@ class Matrix extends React.Component {
 	}
 
 	getHeight() {
-		return this.state.columns[0].length;
+		return this.state.all[3][this.props.index][0].length;
 	}
 
 	getWidth() {
-		return this.state.columns.length;
+		return this.state.all[3][this.props.index].length;
 	}
 
 	getCellValue(x, y) {
 		if(x < 0 || y < 0 || x > this.getWidth()-1 || y > this.getHeight()-1) return '';
-		return this.state.columns[x][y];
+		return this.state.all[3][this.props.index][x][y];
 	}
 
 	setCellValue(x, y, val) {
-		var columns = this.state.columns;
+		var columns = this.state.all[3][this.props.index];
 		columns[x][y] = val;
 
 		this.setState({
@@ -212,18 +212,18 @@ class Matrix extends React.Component {
 	}
 
 	setColumn(n, values) {
-		var columns = this.state.columns;
+		var columns = this.state.all[3][this.props.index];
 		columns[n] = values;
 		this.setState({columns: columns});
 	}
 
 	getColumns() {
-		return this.state.columns;
+		return this.state.all[3][this.props.index];
 	}
 
 	getRow(n) {
 		var row = new Array(this.getWidth());
-		var columns = this.state.columns;
+		var columns = this.state.all[3][this.props.index];
 		for (var i = 0; i < columns.length; i++) {
 			row[i] = columns[i][n];
 		}
@@ -232,7 +232,7 @@ class Matrix extends React.Component {
 	}
 
 	setRow(n, values) {
-		var columns = this.state.columns
+		var columns = this.state.all[3][this.props.index]
 		for (var i = 0; i < values.length; i++) {
 			columns[i][n] = values[i];
 		}

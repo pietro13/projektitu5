@@ -2,6 +2,7 @@ import React from 'react'
 import CalcPanel from "./CalcPanel";
 import RangeSlider from "./Slider";
 import Matrix from "./react-matrix";
+import Controller from "./Controller"
 import {render} from "@testing-library/react";
 import board from "./keyboard";
 
@@ -9,11 +10,21 @@ class Calc extends React.Component{
 
     constructor(props){
         super(props);
-        this.state = {
-            /* matica riadok stlpec array matic array operacii*/
-            all: [-1,-1,-1,[],[] ],
-            update: 0,
-        };
+        if(props.state)
+        {
+            this.state = {
+                /* matica riadok stlpec array matic array operacii*/
+                all: props.state,
+                update: 0,
+            };
+        }
+        else {
+            this.state = {
+                /* matica riadok stlpec array matic array operacii*/
+                all: [-1, -1, -1, [], []],
+                update: 0,
+            };
+        }
     }
     operationHandler(operation){
         if(this.state.all[4].length + 1  ===  this.state.all[3].length) {
@@ -149,14 +160,37 @@ class Calc extends React.Component{
         dummy.select();
         document.execCommand("copy");
         document.body.removeChild(dummy);
+
     }
 
     droptoMatrix(e)
     {
         e.preventDefault();
         var textData = e.dataTransfer.getData('text');
-        console.log(e);
-        console.log(textData);
+        var array = [];
+        var line = textData.split('\n');
+        for( var i = 0; i < line.length; i++)
+        {
+            var column_array = [];
+            var column = line[i].split(",");
+            for(var j = 0 ; j < column.length;j++)
+            {
+                column_array.push([column[j]]);
+            }
+            array.push(column_array);
+        }
+        console.log(array);
+        var main = this.state.all[3];
+        if(main[this.state.all[0] + 1]) {
+            this.state.all[3] = main.slice(0, this.state.all[0]).concat(array).concat(main[this.state.all[0] + 1]);
+        }
+        else
+        {
+            this.state.all[3] =main.slice(0, this.state.all[0]).concat(array);
+        }
+        this.my_render();
+
+
     }
 
 
@@ -164,9 +198,9 @@ class Calc extends React.Component{
 
 
     render(){
-        const { all } = this.state;
+        var { all } = this.state;
         var  j  = 0;
-        console.log(all);
+
 
         return(
             <span  >
@@ -216,7 +250,7 @@ class Calc extends React.Component{
                     <CalcPanel className="calc-grid"
                     result={this.state.result}
                     numberClicked={this.numberHandler.bind(this)}
-                    operationClicked={this.operationHandler.bind(this)}
+                    operationClicked={(e) => this.props.Controller.Pridaj_operaciu(e)}
                     equalClicked={this.equalHandler.bind(this)}
                     matrixInput={this.matrixInputHandler.bind(this)}
                     />

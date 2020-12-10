@@ -1,12 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import App from './View/App';
 import reportWebVitals from './reportWebVitals';
+
+import AppController from "./Controller/AppController";
+
+var Controller = new AppController();
+
+
+
+
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App controller={Controller} />
   </React.StrictMode>,
   document.getElementById('root')
 );
