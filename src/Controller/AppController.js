@@ -18,8 +18,8 @@ export default class AppController{
 
     }
 
-    Nahraj () {
-        document.getElementById('fileInput').click();
+    static Nahraj () {
+        //document.getElementById('fileInput').click();
     }
 
     Zmena () {
@@ -82,6 +82,7 @@ export default class AppController{
 
 
         }
+        localStorage.setItem("all", "kata");
         this.render_calc();
     }
 

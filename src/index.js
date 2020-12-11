@@ -10,7 +10,7 @@ var Controller = new AppController();
 
 
 
-
+localStorage.setItem("all",JSON.stringify([-1,-1,-1,[[["0"]]],[] ]));
 
 ReactDOM.render(
   <React.StrictMode>

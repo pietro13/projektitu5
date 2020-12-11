@@ -1,4 +1,10 @@
 
+import ReactDOM from 'react-dom';
+import React from "react";
+
+
+
+
 export default class AppModel{
 
     state;
@@ -26,4 +32,6 @@ export default class AppModel{
     {
         return this.state.all[3].length;
     }
+
+
 };

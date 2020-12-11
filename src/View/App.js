@@ -10,6 +10,7 @@ import CalcDisplay from "../CalcDisplay";
 
 
 
+
 class App extends React.Component {
 
     constructor(props) {
@@ -25,9 +26,8 @@ class App extends React.Component {
          <div className="App">
              <div className="bar">
                  <input id="fileInput" type="file" style={{display: "none"}} onChange={this.props.controller.Zmena}/>
-                 <input type="button" value="Nahraj súbor" onClick={this.props.controller.Nahraj}/>
+                 <input type="button" value="Nahraj súbor" onClick={Controller.default.Nahraj()}/>
                  <input type="button" value="Uloz súbor" onClick={this.props.controller.Uloz}/>
-
              </div>
              <div className="Name">
                  <text className="definition-text"> Názov:</text>

@@ -202,6 +202,8 @@ class Calc extends React.Component{
         var  j  = 0;
 
 
+
+        localStorage.setItem("dana","no");
         return(
             <span  >
                 <div className="matrix-display" onChange={() => this.setState({update:0})} >
